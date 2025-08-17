@@ -1,4 +1,5 @@
 package com.tekstac.abs.config;
 
-public class DBConfig {
+public class DBConfig{
+
 }
