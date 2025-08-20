@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- Customer Logs -->
+        <RollingFile name="CustomerLog" fileName="logs/customer.log"
+                     filePattern="logs/customer-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- Transaction Logs -->
+        <RollingFile name="TransactionLog" fileName="logs/transaction.log"
+                     filePattern="logs/transaction-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- Loan Logs -->
+        <RollingFile name="LoanLog" fileName="logs/loan.log"
+                     filePattern="logs/loan-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Module-specific loggers -->
+        <Logger name="com.tekstac.abs.controller.CustomerController" level="info" additivity="false">
+            <AppenderRef ref="CustomerLog"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="com.tekstac.abs.service.TransactionService" level="info" additivity="false">
+            <AppenderRef ref="TransactionLog"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="com.tekstac.abs.service.LoanService" level="info" additivity="false">
+            <AppenderRef ref="LoanLog"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="warn">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
