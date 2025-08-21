@@ -37,7 +37,7 @@ public class Ticket {
     @Column(name = "ticket_type", nullable = false)
     private TicketType ticketType;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "CLOB")
     private String description;
 
     @Enumerated(EnumType.STRING)

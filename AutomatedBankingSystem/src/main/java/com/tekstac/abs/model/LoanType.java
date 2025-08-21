@@ -28,7 +28,7 @@ public class LoanType {
     @Column(name = "name", unique = true, length = 50, nullable = false)
     private String name;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "CLOB")
     private String description;
 
     @NotNull

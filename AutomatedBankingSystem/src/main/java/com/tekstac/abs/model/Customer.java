@@ -44,10 +44,11 @@ public class Customer {
     private String phone;
 
     @NotEmpty
-    @Column(name = "address", columnDefinition = "TEXT")
+    @Column(name = "address", columnDefinition = "CLOB")
     private String address;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
