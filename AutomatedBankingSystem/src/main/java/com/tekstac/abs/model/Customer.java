@@ -1,6 +1,9 @@
 package com.tekstac.abs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,20 +24,32 @@ public class Customer {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @NotEmpty
+    @Column(name = "customer_number", unique = true, length = 20, nullable = false)
+    private String customerNumber;
+
+    @NotEmpty
     @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
+    @NotEmpty
     @Column(name = "email", unique = true, nullable = false, length = 255)
     private String email;
 
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
+    @NotEmpty
     @Column(name = "phone", length = 20)
     private String phone;
 
+    @NotEmpty
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
+
+    @NotNull
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -47,6 +62,10 @@ public class Customer {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public enum Gender {
+        MALE, FEMALE, OTHER
+    }
 
     public enum CustomerStatus {
         ACTIVE, INACTIVE, SUSPENDED

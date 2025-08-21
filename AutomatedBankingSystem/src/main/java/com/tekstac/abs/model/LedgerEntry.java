@@ -1,6 +1,7 @@
 package com.tekstac.abs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,18 +22,22 @@ public class LedgerEntry {
     @Column(name = "entry_id")
     private Long entryId;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction_id", nullable = false)
     private Transaction transaction;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "entry_type", nullable = false)
     private EntryType entryType;
 
+    @NotNull
     @Column(name = "amount", precision = 15, scale = 2, nullable = false)
     private BigDecimal amount;
 

@@ -1,6 +1,8 @@
 package com.tekstac.abs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,10 +23,16 @@ public class Ticket {
     @Column(name = "ticket_id")
     private Long ticketId;
 
+    @NotEmpty
+    @Column(name = "ticket_number", unique = true, length = 20, nullable = false)
+    private String ticketNumber;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "ticket_type", nullable = false)
     private TicketType ticketType;

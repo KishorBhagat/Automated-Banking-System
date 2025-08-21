@@ -1,10 +1,12 @@
 package com.tekstac.abs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,20 +23,15 @@ public class Transaction {
     @Column(name = "transaction_id")
     private Long transactionId;
 
+    @NotEmpty
+    @Size(min = 30, max = 30)
+    @Column(name = "reference_id", unique = true, length = 30, nullable = false)
+    private String referenceId;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_account_id")
-    private Account fromAccount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_account_id")
-    private Account toAccount;
-
-    @Column(name = "amount", precision = 15, scale = 2, nullable = false)
-    private BigDecimal amount;
 
     @Column(name = "remarks", length = 255)
     private String remarks;

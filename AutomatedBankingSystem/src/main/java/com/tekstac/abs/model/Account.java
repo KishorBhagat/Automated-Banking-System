@@ -1,6 +1,9 @@
 package com.tekstac.abs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,24 +25,31 @@ public class Account {
     @Column(name = "account_id")
     private Long accountId;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @NotEmpty
+    @Size(min = 11, max = 17)
     @Column(name = "account_number", unique = true, nullable = false, length = 20)
     private String accountNumber;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_id", nullable = false)
     private Bank bank;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "account_type", nullable = false)
     private AccountType accountType;
 
+    @NotNull
     @Column(name = "opening_balance", precision = 15, scale = 2, nullable = false)
     private BigDecimal openingBalance;
 
+    @NotNull
     @Column(name = "cached_balance", precision = 15, scale = 2, nullable = false)
     private BigDecimal cachedBalance;
 
