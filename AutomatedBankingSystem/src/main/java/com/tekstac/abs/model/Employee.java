@@ -3,7 +3,6 @@ package com.tekstac.abs.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,22 +10,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "employees")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
-
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Long customerId;
+    @Column(name = "employee_id")
+    private Long employeeId;
 
     @NotEmpty
-    @Column(name = "customer_number", unique = true, length = 20, nullable = false)
-    private String customerNumber;
+    @Column(name = "employee_number", unique = true, length = 20, nullable = false)
+    private String employeeNumber;
 
     @NotEmpty
     @Column(name = "full_name", length = 50, nullable = false)
@@ -36,7 +34,6 @@ public class Customer {
     @Column(name = "email", unique = true, nullable = false, length = 255)
     private String email;
 
-    @NotEmpty
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
@@ -53,13 +50,12 @@ public class Customer {
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
+    @Column(name = "role", nullable = false)
+    private Role role = Role.OFFICER;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private CustomerStatus status = CustomerStatus.ACTIVE;
-
-    @NotNull
-    @Column(name = "is_verified", nullable = false)
-    private Boolean isVerified = false;
+    private EmployeeStatus status = EmployeeStatus.ACTIVE;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -73,7 +69,11 @@ public class Customer {
         MALE, FEMALE, OTHER
     }
 
-    public enum CustomerStatus {
+    public enum Role {
+        OFFICER, ADMIN, MANAGER
+    }
+
+    public enum EmployeeStatus {
         ACTIVE, INACTIVE, SUSPENDED
     }
 }
